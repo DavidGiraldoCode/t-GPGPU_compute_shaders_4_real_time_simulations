@@ -1,0 +1,34 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+struct Cube
+{
+    float4 color;
+};
+
+RWStructuredBuffer<Cube> cubes;
+//StructuredBuffer<Cube> cubes;
+float resolution;
+
+//random function done by someone on the internet
+float rand(float2 co)
+{
+    return (frac(sin(dot(co.x, float2(12.9898, 78.233))) * 43758.5453)) * 1;
+}
+
+[numthreads(10,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    float colorRam = id.x / resolution;
+
+    Cube cube = cubes[id.x];
+
+    float r = rand(float2(cube.color.r, cube.color.g));
+    float g = rand(float2(cube.color.g, cube.color.b));
+    float b = rand(float2(cube.color.b, cube.color.r));
+
+    //cube.color = float4(colorRam, 0.0, 0.0, 1.0);
+    cube.color = float4(r, g, b, 1.0);
+
+    cubes[id.x] = cube;
+}
