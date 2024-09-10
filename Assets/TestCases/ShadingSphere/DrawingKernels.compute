@@ -1,0 +1,45 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel MeshColoring
+
+/*
+Compute Shader variables declaration.
+They are not initialized because their data comes from the CPU world
+*/
+float4x4 _LocalToWorld;
+uint _VertexCount;
+float4 _Sphere;
+
+StructuredBuffer<float3> _VertexBuffer;
+RWStructuredBuffer<float4> _ColorBuffer;
+
+/*
+We assing 32 thread in the X dimension per Thread Group.
+Meaning that the other dimension are not being used.
+*/
+[numthreads(32,1,1)]
+void MeshColoring (uint3 id : SV_DispatchThreadID)
+{
+    //Make sure that the id does not get beyond the number of vertices the mesh has
+    if (id.x >= _VertexCount)
+    {
+        return;
+    }
+    
+    /*
+    Multiply the World Matrix to the vertices of the mesh we are modifying
+    This is an affine transformation, that why we need a 4th component.
+    Our tranform verctor has the form: V = [X, Y, Z, W] in Homogeneous Coordinates
+    */ 
+    float3 vertexPosition = mul(_LocalToWorld, float4(_VertexBuffer[id.x], 1.0)).xyz;
+    /*
+    _Sphere.w represents the radius of the sphere, the domain.
+    distance / radius
+    */
+    float mask = 1.0 - saturate(distance(vertexPosition, _Sphere.xyz) / _Sphere.w);
+
+    /*
+    This is the code for a color stored in a 4D vector.
+    RBGA (R = mask, B = 0, G = 0, alpha = 0)
+    */
+    _ColorBuffer[id.x] += float4(mask, 0, 0, 1);
+}
