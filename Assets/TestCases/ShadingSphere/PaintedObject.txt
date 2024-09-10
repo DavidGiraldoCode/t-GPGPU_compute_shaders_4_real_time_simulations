@@ -1,0 +1,71 @@
+Shader "Unlit/PaintedObject"
+{
+    SubShader
+    {
+        // Tags help Unity identify the type of shader and its render priority
+        Tags { "RenderType" = "Opaque" }
+
+        // Level of Detail (LOD) sets the shader's quality level, where lower values are higher quality
+        LOD 100
+
+        Pass
+        {
+            // Begin CG/HLSL code block
+            CGPROGRAM
+
+            // Specify the vertex and fragment shader functions
+            #pragma vertex vert
+            #pragma fragment frag
+
+            // Include standard Unity shader library functions
+            #include "UnityCG.cginc"
+
+            // Structure for input data to the vertex shader
+            struct appdata
+            {
+                // Vertex position in object space
+                float4 vertex : POSITION;
+
+                // Vertex ID for accessing the color buffer
+                uint id : SV_VertexID;
+            };
+
+            // Structure for data passed from the vertex shader to the fragment shader
+            struct v2f
+            {
+                // Transformed vertex position in clip space
+                float4 vertex : SV_POSITION;
+
+                // Color data from the buffer
+                float4 color : COLOR;
+            };
+
+            // Structured buffer holding the color data
+            StructuredBuffer<float4> _ColorBuffer;
+
+            // Vertex shader function
+            v2f vert(appdata v)
+            {
+                v2f o;
+
+                // Transform vertex position from object space to clip space
+                o.vertex = UnityObjectToClipPos(v.vertex);
+
+                // Retrieve color from the buffer using the vertex ID
+                o.color = _ColorBuffer[v.id];
+
+                return o;
+            }
+
+            // Fragment shader function
+            fixed4 frag(v2f i) : SV_Target
+            {
+                // Output the color value
+                return i.color;
+            }
+
+            // End CG/HLSL code block
+            ENDCG
+        }
+    }
+}
