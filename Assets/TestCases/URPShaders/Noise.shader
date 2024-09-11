@@ -55,7 +55,7 @@ Shader "Unlit/Noise"
             float4 frag(VertexOutput output) : SV_TARGET
             {
 
-                float2 scaledUV = output.uv * 80;
+                float2 scaledUV = output.uv * 2;
                 float2 localUV = frac(scaledUV) * 2 - 1;
                 //float2 localUV = (output.uv) * 2 - 1;
                 
@@ -75,7 +75,11 @@ Shader "Unlit/Noise"
                 //if (outsideThickness) discard; //&& _ShellIndex > 0)
 
                 //Use this to Debbug the noise.
-                float4 color = float4(rand,rand,rand,1);
+                //float4 color = float4(rand,rand,rand,1);
+
+                //Use this to Debbug the frac, the tiling effect, as we scale our texture S times, the coordinate reset every 1/Sth of the texture space
+                float4 color = float4(frac(output.uv * 2).x,frac(output.uv * 2).y,0,1);
+                
 
                 //Use this to Debbug localUV
                 //float4 color = float4(localUV.x,localUV.y,0,1);
