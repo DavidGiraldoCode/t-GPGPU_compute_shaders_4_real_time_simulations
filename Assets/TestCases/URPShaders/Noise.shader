@@ -55,37 +55,52 @@ Shader "Unlit/Noise"
             float4 frag(VertexOutput output) : SV_TARGET
             {
 
-                float2 scaledUV = output.uv * 2;
-                float2 localUV = frac(scaledUV) * 2 - 1;
+                float2 scaledUV = output.uv * 80;
+                float2 localUV = frac(scaledUV) * 2 - 1; // by multiplying by 2 and then substracting -1, we change the domain from [0,1] to [-1,1]
                 //float2 localUV = (output.uv) * 2 - 1;
                 
                 float localDistanceFromCenter = length(localUV); // Returns the magnitud of a vector https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-length
-                uint2 tid = scaledUV;
-				uint seed = tid.x + 100 * tid.y + 100 * 10;
+                uint2 tid = scaledUV; //just casting
+				uint seed = tid.x + 100 * tid.y + 100 * 10; //just the random seed
 
-                float shellIndex = 0;
-                float shellCount = 1;
+                float shellIndex = 0.0;
+                float shellCount = 1.0;
 
-                float rand = lerp(0, 1, hash(seed)); // Lerps between x0 and x1 by s https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-lerp
+                float rand = lerp(0, 1, hash(seed)); // Lerps between X0 and X1 by s https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-lerp
 
                 float h = shellIndex / shellCount;
 
-                int outsideThickness = (localDistanceFromCenter) > (1 * (rand - h));
+                float thicknessAtHeight = (1 * (rand - h));
+                int outsideThickness = (localDistanceFromCenter) > (thicknessAtHeight);
 
-                //if (outsideThickness) discard; //&& _ShellIndex > 0)
+                if (outsideThickness && shellIndex > 0)  discard; //&& _ShellIndex > 0)
 
-                //Use this to Debbug the noise.
-                //float4 color = float4(rand,rand,rand,1);
+                // -----------------------------
+                // Use this to Debbug the reading of a texture and location of the UVs.
+                //
+                //float4 color = float4(output.uv.x,0,output.uv.y,1);
 
-                //Use this to Debbug the frac, the tiling effect, as we scale our texture S times, the coordinate reset every 1/Sth of the texture space
-                float4 color = float4(frac(output.uv * 2).x,frac(output.uv * 2).y,0,1);
+                // -----------------------------
+                // Use this to Debbug the noise.
+                //
+                float4 color = float4(rand,rand,rand,1);
+
+                // -----------------------------
+                // Use this to Debbug the frac, the tiling effect, as we scale our texture S times, the coordinate reset every 1/Sth of the texture space
+                //
+                // Manual tiling
+                int repetitions = 4;
+                float2 tiledUV = output.uv * repetitions - floor(output.uv * repetitions);
+                //float4 color = float4(frac(output.uv * 3).x,frac(output.uv * 3).y,0,1);
+                //float4 color = float4(tiledUV.x, tiledUV.y, 0, 1);
                 
 
-                //Use this to Debbug localUV
+                // -----------------------------
+                // Use this to Debbug localUV
+                //
                 //float4 color = float4(localUV.x,localUV.y,0,1);
 
-                //Use this to Debbug the reading of a texture and location of the UVs.
-                //float4 color = float4(output.uv.x,0,output.uv.y,1);
+                
                 
                 return color;
             }
