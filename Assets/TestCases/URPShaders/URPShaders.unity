@@ -797,6 +797,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1709070080}
   - component: {fileID: 1709070079}
+  - component: {fileID: 1709070081}
+  - component: {fileID: 1709070082}
   m_Layer: 0
   m_Name: Layers
   m_TagString: Untagged
@@ -817,8 +819,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-  displacementMAT: {fileID: 2100000, guid: 8badc411bb8984dcbb9042e239ddc910, type: 2}
-  layerCount: 16
+  shader: {fileID: 4800000, guid: 70c0ffdf6f13c4297b08ebf3df71af22, type: 3}
+  layerCount: 14
 --- !u!4 &1709070080
 Transform:
   m_ObjectHideFlags: 0
@@ -834,6 +836,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1709070081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709070078}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72158fd5831ef44a2b47937d4f923fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shellMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  shellShader: {fileID: 4800000, guid: c9b929c46505946d9866a4656b555007, type: 3}
+  updateStatics: 1
+  shellCount: 32
+  shellLength: 0.15
+  distanceAttenuation: 1
+  density: 100
+  noiseMin: 0
+  noiseMax: 1
+  thickness: 1
+  curvature: 1
+  displacementStrength: 0.1
+  shellColor: {r: 0.9150943, g: 0.5842366, b: 0.2719384, a: 0}
+  occlusionAttenuation: 1
+  occlusionBias: 0
+--- !u!114 &1709070082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709070078}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85043a537b3194b5a9febb0a60c1cfb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shellMesh: {fileID: 0}
+  shellShader: {fileID: 4800000, guid: 9fcb3569a8f7b4959bc1ba6b41a61dc6, type: 3}
+  updateStatics: 1
+  shellCount: 16
+  shellLength: 0.15
+  distanceAttenuation: 1
+  density: 100
+  noiseMin: 0
+  noiseMax: 1
+  thickness: 1
+  curvature: 1
+  displacementStrength: 0.1
+  shellColor: {r: 0.013349922, g: 0.9433962, b: 0.023016026, a: 0}
+  occlusionAttenuation: 1
+  occlusionBias: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

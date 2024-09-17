@@ -14,6 +14,15 @@ Shader "Unlit/ShellTextureURP"
 
         Pass
         {
+            Tags
+            {
+                "LightMode" = "UniversalForward"
+            }
+            Cull Off
+            Blend SrcAlpha OneMinusSrcAlpha
+            ZTest LEqual
+            ZWrite Off
+            
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag

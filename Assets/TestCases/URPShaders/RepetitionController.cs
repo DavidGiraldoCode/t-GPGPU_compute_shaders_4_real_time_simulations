@@ -3,13 +3,15 @@ using UnityEngine;
 public class RepetitionController : MonoBehaviour
 {
     public Mesh mesh;
+    public Shader shader;
     private GameObject[] layers;
-    public Material displacementMAT;
+    private Material displacementMAT;
     [Range(1,32)]
     public uint layerCount = 0;
 
     private void OnEnable() 
     {
+        displacementMAT = new Material(shader);
         layers = new GameObject[layerCount];
 
         for (int i = 0; i < layerCount; ++i) {
@@ -20,8 +22,7 @@ public class RepetitionController : MonoBehaviour
             layers[i].GetComponent<MeshFilter>().mesh = mesh;
             layers[i].GetComponent<MeshRenderer>().material = displacementMAT;
             layers[i].transform.SetParent(this.transform, false);
-            //layers[i].transform.position = transform.position + transform.position.normalized * (i * 0.4f);
-
+            
             layers[i].GetComponent<MeshRenderer>().material.SetInt("_LayerCount", (int)layerCount);
             layers[i].GetComponent<MeshRenderer>().material.SetInt("_LayerIndex", i);
         }
