@@ -2,6 +2,7 @@ Shader "Unlit/ShellTextureURP"
 {
     Properties
     {
+        _BaseColor ("Base Color", Color) = (1.0, 1.0, 1.0, 1.0)
     }
     SubShader
     {
@@ -12,9 +13,9 @@ Shader "Unlit/ShellTextureURP"
             "RenderPipeline" = "UniversalPipeline"
         }
         //LOD 100
-        ZWrite Off // Disable depth writing for transparency
-        Blend SrcAlpha OneMinusSrcAlpha // Enable alpha blending
-        Cull Back //Off works as well//
+        //ZWrite Off // Disable depth writing for transparency
+        //Blend SrcAlpha OneMinusSrcAlpha // Enable alpha blending
+        Cull Off //Off works as well//
         
         Pass
         {
@@ -46,7 +47,8 @@ Shader "Unlit/ShellTextureURP"
                 float4 position : SV_POSITION;
                 float3 normal   : NORMAL;
                 float2 uv       : TEXCOORD0;
-                float3 worldPos : TEXCOORD2;
+                //float3 worldPos : TEXCOORD2;
+                //float layer     : TEXCOORD2;
             };
 
             int _ShellIndex; // This is the current shell layer being operated on, it ranges from 0 -> _ShellCount 
@@ -63,6 +65,7 @@ Shader "Unlit/ShellTextureURP"
 			float3 _ShellColor; // The color of the shells (very complicated)
 			float3 _ShellDirection; // The direction the shells are going to point towards, this is updated by the CPU each frame based on user input/movement
 
+            float4 _BaseColor;
             //float3 _MainLightPosition;
 
             //For random value, implementation detail not important
@@ -92,10 +95,16 @@ Shader "Unlit/ShellTextureURP"
 
                 //INPUT.vertex.xyz += dir;
 
-                OUTPUT.normal = normalize(TransformObjectToWorldNormal(INPUT.normal));
-                OUTPUT.position = TransformObjectToHClip(INPUT.vertex);
+                // OUTPUT.normal = normalize(TransformObjectToWorldNormal(INPUT.normal.xyz));
+                // OUTPUT.position = TransformObjectToHClip(INPUT.vertex.xyz);
                 
-                OUTPUT.uv = INPUT.uv;
+                // OUTPUT.uv = INPUT.uv;
+                //Recall to always initialize all output components
+                OUTPUT.normal = normalize(INPUT.normal);  // Initialize the normal
+                OUTPUT.position = TransformObjectToHClip(INPUT.vertex.xyz);
+                OUTPUT.uv = INPUT.uv; // Initialize UVs
+                //OUTPUT.layer = (float)_ShellIndex / (float)_ShellCount; // Store layer for color blending
+
 
                 return OUTPUT;
             }
@@ -124,7 +133,26 @@ Shader "Unlit/ShellTextureURP"
                 //if (_ShellIndex > 0) discard;  GetMainLight().direction
                 ndotl = ndotl * ndotl;
 
-                return float4(_ShellColor * ndotl * 1, 1.0);
+                float ambientOcclusion = pow(h, _Attenuation);
+                ambientOcclusion += _OcclusionBias;
+                //ambientOcclusion = saturate(ambientOcclusion);
+
+
+                //return float4(_BaseColor * ndotl * 1, _BaseColor.a);
+                _BaseColor.r = _ShellColor.r;
+                _BaseColor.g = _ShellColor.g;
+                _BaseColor.b = _ShellColor.b;
+                //----
+                float4 color = _BaseColor * ndotl * ambientOcclusion * 1;
+
+                // Modify the alpha based on layer index to blend layers
+                //color.r *= (1.0 - output.layer);
+                //color.a *= (1.0 - output.layer);
+                //color.g = (1.0 - shellIndex);
+                //color.b = 0.0;
+                //color.r *= (h);
+
+                return color;
             }
 
             ENDHLSL
