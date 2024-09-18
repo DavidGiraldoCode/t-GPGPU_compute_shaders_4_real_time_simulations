@@ -7,21 +7,26 @@ Shader "Unlit/ShellTextureURP"
     {
         Tags 
         { 
-            "RenderType" = "Opaque" 
-            "RenderPipeline" = "UniversalRenderPipeline"
+            "RenderType" = "Transparent"
+            "Queue" = "Transparent"
+            "RenderPipeline" = "UniversalPipeline"
         }
-        LOD 100
-
+        //LOD 100
+        ZWrite Off // Disable depth writing for transparency
+        Blend SrcAlpha OneMinusSrcAlpha // Enable alpha blending
+        Cull Back //Off works as well//
+        
         Pass
         {
-            Tags
-            {
-                "LightMode" = "UniversalForward"
-            }
-            Cull Off
-            Blend SrcAlpha OneMinusSrcAlpha
-            ZTest LEqual
-            ZWrite Off
+            // Tags
+            // {
+            // "LightMode" = "UniversalForward"  
+            //}
+            // Cull Off
+            // Blend SrcAlpha OneMinusSrcAlpha
+            // ZTest LEqual
+            // ZWrite Off
+            
             
             HLSLPROGRAM
             #pragma vertex vert
@@ -125,4 +130,5 @@ Shader "Unlit/ShellTextureURP"
             ENDHLSL
         }
     }
+    Fallback Off
 }

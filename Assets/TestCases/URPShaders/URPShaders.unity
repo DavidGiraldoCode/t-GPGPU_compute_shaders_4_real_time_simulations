@@ -819,8 +819,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-  shader: {fileID: 4800000, guid: 70c0ffdf6f13c4297b08ebf3df71af22, type: 3}
-  layerCount: 14
+  shader: {fileID: 4800000, guid: 9257a1f3300a440b5858de13f651fdc7, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  layerCount: 24
 --- !u!4 &1709070080
 Transform:
   m_ObjectHideFlags: 0

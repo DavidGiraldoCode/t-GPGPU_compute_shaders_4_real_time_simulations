@@ -1,4 +1,4 @@
-Shader "Unlit/Displacement"
+Shader "Unlit/DisplacementWithAlpha"
 {
     Properties
     {
@@ -56,7 +56,7 @@ Shader "Unlit/Displacement"
 
                 // Offset the vertex position along the normal
                 input.vertex.xyz += input.normal.xyz * displacementForceAlongNormal;
-
+                
                 output.position = TransformObjectToHClip(input.vertex.xyz);
                 output.uv = input.uv;
                 output.layer = (float)_LayerIndex / (float)_LayerCount; // Store layer for color blending
