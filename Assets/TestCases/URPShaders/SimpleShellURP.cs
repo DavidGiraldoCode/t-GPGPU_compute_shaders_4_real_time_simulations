@@ -6,6 +6,7 @@ using UnityEngine;
 public class SimpleShellURP : MonoBehaviour {
     public Mesh shellMesh;
     public Shader shellShader;
+    public FurrySetting furrySetting;
 
     public bool updateStatics = true;
 
@@ -67,19 +68,19 @@ public class SimpleShellURP : MonoBehaviour {
 
             // In order to tell the GPU what its uniform variable values should be, we use these "Set" functions which will set the
             // values over on the GPU. 
-            shells[i].GetComponent<MeshRenderer>().material.SetInt("_ShellCount", shellCount);
+            shells[i].GetComponent<MeshRenderer>().material.SetInt("_ShellCount", furrySetting.shellCount);
             shells[i].GetComponent<MeshRenderer>().material.SetInt("_ShellIndex", i);
-            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_ShellLength", shellLength);
-            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Density", density);
-            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Thickness", thickness);
-            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Attenuation", occlusionAttenuation);
-            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_ShellDistanceAttenuation", distanceAttenuation);
-            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Curvature", curvature);
-            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_DisplacementStrength", displacementStrength);
-            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_OcclusionBias", occlusionBias);
-            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_NoiseMin", noiseMin);
-            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_NoiseMax", noiseMax);
-            shells[i].GetComponent<MeshRenderer>().material.SetVector("_ShellColor", shellColor);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_ShellLength", furrySetting.shellLength);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Density", furrySetting.density);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Thickness", furrySetting.thickness);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Attenuation", furrySetting.occlusionAttenuation);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_ShellDistanceAttenuation", furrySetting.distanceAttenuation);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Curvature", furrySetting.curvature);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_DisplacementStrength", furrySetting.displacementStrength);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_OcclusionBias", furrySetting.occlusionBias);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_NoiseMin", furrySetting.noiseMin);
+            shells[i].GetComponent<MeshRenderer>().material.SetFloat("_NoiseMax", furrySetting.noiseMax);
+            shells[i].GetComponent<MeshRenderer>().material.SetVector("_ShellColor", furrySetting.shellColor);
         }
     }
 
@@ -121,19 +122,19 @@ public class SimpleShellURP : MonoBehaviour {
         // updated.
         if (updateStatics) {
             for (int i = 0; i < shellCount; ++i) {
-                shells[i].GetComponent<MeshRenderer>().material.SetInt("_ShellCount", shellCount);
+                shells[i].GetComponent<MeshRenderer>().material.SetInt("_ShellCount", furrySetting.shellCount);
                 shells[i].GetComponent<MeshRenderer>().material.SetInt("_ShellIndex", i);
-                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_ShellLength", shellLength);
-                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Density", density);
-                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Thickness", thickness);
-                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Attenuation", occlusionAttenuation);
-                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_ShellDistanceAttenuation", distanceAttenuation);
-                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Curvature", curvature);
-                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_DisplacementStrength", displacementStrength);
-                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_OcclusionBias", occlusionBias);
-                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_NoiseMin", noiseMin);
-                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_NoiseMax", noiseMax);
-                shells[i].GetComponent<MeshRenderer>().material.SetVector("_ShellColor", shellColor);
+                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_ShellLength", furrySetting.shellLength);
+                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Density", furrySetting.density);
+                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Thickness", furrySetting.thickness);
+                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Attenuation", furrySetting.occlusionAttenuation);
+                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_ShellDistanceAttenuation", furrySetting.distanceAttenuation);
+                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_Curvature", furrySetting.curvature);
+                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_DisplacementStrength", furrySetting.displacementStrength);
+                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_OcclusionBias", furrySetting.occlusionBias);
+                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_NoiseMin", furrySetting.noiseMin);
+                shells[i].GetComponent<MeshRenderer>().material.SetFloat("_NoiseMax", furrySetting.noiseMax);
+                shells[i].GetComponent<MeshRenderer>().material.SetVector("_ShellColor", furrySetting.shellColor);
             }
         }
     }

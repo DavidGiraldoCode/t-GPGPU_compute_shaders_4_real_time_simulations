@@ -90,15 +90,10 @@ Shader "Unlit/ShellTextureURP"
 
                 INPUT.vertex.xyz += INPUT.normal.xyz * _ShellLength * shellHeight;
 
-                //dir
-                //float3 dir = float3(0, 1, 0);
+                float k = pow(shellHeight, _Curvature);
+                INPUT.vertex.xyz += _ShellDirection * k * _DisplacementStrength;
 
-                //INPUT.vertex.xyz += dir;
-
-                // OUTPUT.normal = normalize(TransformObjectToWorldNormal(INPUT.normal.xyz));
-                // OUTPUT.position = TransformObjectToHClip(INPUT.vertex.xyz);
-                
-                // OUTPUT.uv = INPUT.uv;
+               
                 //Recall to always initialize all output components
                 OUTPUT.normal = normalize(INPUT.normal);  // Initialize the normal
                 OUTPUT.position = TransformObjectToHClip(INPUT.vertex.xyz);
