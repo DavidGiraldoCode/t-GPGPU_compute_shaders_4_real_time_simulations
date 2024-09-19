@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63e751514bcd54c7e91baf10f524ac3e, type: 3}
   m_Name: RedFluffyFur
   m_EditorClassIdentifier: 
-  shellCount: 16
-  shellLength: 0.196
+  shellCount: 22
+  shellLength: 0.191
   distanceAttenuation: 0.3
-  density: 108
+  density: 211
   noiseMin: 0
   noiseMax: 1
   thickness: 2.86
   curvature: 4.18
-  displacementStrength: 0.098
+  displacementStrength: 0.082
   shellColor: {r: 0.9137255, g: 0.17081754, b: 0.14117648, a: 0}
-  occlusionAttenuation: 2.09
-  occlusionBias: 0.793
+  occlusionAttenuation: 3.3
+  occlusionBias: 0.73

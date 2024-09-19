@@ -55,7 +55,7 @@ Shader "Unlit/Noise"
             float4 frag(VertexOutput output) : SV_TARGET
             {
 
-                float2 scaledUV = output.uv * 80;
+                float2 scaledUV = output.uv * 1;
                 float2 localUV = frac(scaledUV) * 2 - 1; // by multiplying by 2 and then substracting -1, we change the domain from [0,1] to [-1,1]
                 //float2 localUV = (output.uv) * 2 - 1;
                 
@@ -63,8 +63,8 @@ Shader "Unlit/Noise"
                 uint2 tid = scaledUV; //just casting
 				uint seed = tid.x + 100 * tid.y + 100 * 10; //just the random seed
 
-                float shellIndex = 0.0;
-                float shellCount = 1.0;
+                float shellIndex = 1.0;
+                float shellCount = 4.0;
 
                 float rand = lerp(0, 1, hash(seed)); // Lerps between X0 and X1 by s https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-lerp
 
@@ -73,7 +73,7 @@ Shader "Unlit/Noise"
                 float thicknessAtHeight = (1 * (rand - h));
                 int outsideThickness = (localDistanceFromCenter) > (thicknessAtHeight);
 
-                if (outsideThickness && shellIndex > 0)  discard; //&& _ShellIndex > 0)
+                //if (outsideThickness && shellIndex > 0)  discard; //&& _ShellIndex > 0)
 
                 // -----------------------------
                 // Use this to Debbug the reading of a texture and location of the UVs.
