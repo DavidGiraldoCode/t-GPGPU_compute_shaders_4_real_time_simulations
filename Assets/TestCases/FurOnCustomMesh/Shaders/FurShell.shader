@@ -97,6 +97,7 @@ Shader "Unlit/FurShell"
                 //Build the color by components
 
                 float2 newUV = vert_OUTPUT.uv * _Density;
+                newUV.y *= 6;
                 float2 localUV = frac(newUV) * 2 - 1;
                 float localDistanceFromCenter = length(localUV);
 
