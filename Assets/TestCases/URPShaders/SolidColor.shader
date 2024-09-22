@@ -55,7 +55,7 @@ Shader "Unlit/SolidColor"
                 return OUTPUT;
             }
             //Fragment Shader
-            float4 frag(VertexOut vrt_OUTPUT)
+            float4 frag(VertexOut vrt_OUTPUT) : SV_Target
             {
                 float4 baseTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, vrt_OUTPUT.uv);
                 return baseTex * _BaseColor;

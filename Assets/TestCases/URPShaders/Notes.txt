@@ -1,0 +1,53 @@
+/*
+#include "Packages/com.unity.render-pipelines.universal/Shaders/UnlitInput.hlsl"
+
+            //"Queue" = "Transparent"
+            //"RenderType" = "Cutoff" 
+            //"RenderType" = "Opaque" 
+            //"RenderPipeline" = "UniversalRenderPipeline"
+            //"LightMode" = "ForwardBase"
+            //"LightMode" = "UniversalForward"
+        
+        //! Night additions
+// "RenderPipeline" = "UniversalPipeline"
+            // //"IgnoreProjector" = "True"
+            // "UniversalMaterialType" = "Lit"
+
+
+//LOD 100
+
+        // ZWrite On
+        // ZTest LEqual
+        // Cull Off
+
+        //!
+        //LOD 100
+        //Cull Off
+        //ZTest Always
+        //Offset 0, -1
+
+
+
+//(float)_ShellIndex / (float)_ShellCount;
+   //float shellHeight = (float)1 / (float)2;
+
+                //float distanceAtenuation = 2.5;
+                //shellHeight = pow(shellHeight, distanceAtenuation);  // f(y) =x^{2.5} => x is the shellHeight and exponent is a user defined value of atenuation.
+
+// Disable depth test so all layers render
+            //ZTest Always
+            //Offset 1, 1
+            //Blend SrcAlpha OneMinusSrcAlpha
+            //! Night additions
+            // Name "ForwardLit"
+            // Tags{"LightMode" = "UniversalForward" }
+            // // "UniversalForward" tells Unity this is the main lighting pass of this shader
+           // blend [_SourceBlend] [_DestBlend]
+            // Zwrite [_Zwrite]
+            //Name "ForwardLit"
+            //Tags { "LightMode" = "DepthOnly" }
+
+            //ZWrite On
+            //ColorMask R
+            //!
+                */
