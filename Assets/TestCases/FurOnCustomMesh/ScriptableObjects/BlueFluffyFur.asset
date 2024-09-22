@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updateStatics: 1
   shellCount: 24
-  shellLength: 0.143
-  distanceAttenuation: 0.51
-  density: 74
-  noiseMin: 0.183
-  noiseMax: 0.83
-  thickness: 5.19
-  curvature: 7.84
-  displacementStrength: 0.825
+  shellLength: 0.005
+  distanceAttenuation: 1.93
+  density: 164
+  noiseMin: 0
+  noiseMax: 1
+  thickness: 7.27
+  curvature: 10
+  displacementStrength: 0.01
   shellColor: {r: 0, g: 0.42666674, b: 1, a: 0.42745098}
-  occlusionAttenuation: 4.65
+  occlusionAttenuation: 5
   occlusionBias: 1
